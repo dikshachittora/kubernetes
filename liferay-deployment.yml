@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: liferay-deployment
+  namespace: st-website
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: liferay
+  template:
+    metadata:
+      labels:
+        app: liferay
+    spec:
+      nodeName: st07061901
+      containers:
+        - name: liferay
+          image: liferay/portal
+          ports:
+            - containerPort: 443
+      imagePullSecrets:
+      - name: docker-registry-secret    

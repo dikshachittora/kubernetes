@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elasticsearch-deployment
+  namespace: st-website
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      nodeName: 
+      containers:
+        - name: elasticsearch
+          image: dikshaop/elasticsearch_new:latest      
+          ports:
+            - containerPort: 9200
+            - containerPort: 9300
+      imagePullSecrets:
+      - name: docker-registry-secret   
+          
+      

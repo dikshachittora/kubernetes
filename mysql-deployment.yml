@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  namespace: st-website
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      nodeName: st07061901
+      containers:
+      - name: mysql
+        image: dikshaop/st-website-mysql:latest
+        ports:
+        - containerPort: 3306          
+        volumeMounts:            
+        - name: mysql-volume
+          mountPath: /var/lib/mysql
+      imagePullSecrets:
+      - name: docker-registry-secret
+      volumes: 
+      - name: mysql-volume
+        persistentVolumeClaim:
+          claimName: mysql-pvc
